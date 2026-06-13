@@ -1,0 +1,5 @@
+This is What Interviewers Want
+When interviewer asks "explain protected routes" — say exactly what you just said to me:
+
+"We use ProtectedRoute so only logged in users can access dashboard. We also added role based access — seeker can only access seeker dashboard and recruiter can only access recruiter dashboard. If wrong role tries to access — we redirect them to home page."
+
