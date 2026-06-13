@@ -44,6 +44,7 @@ async function register(req, res) {
 
 async function login(req, res) {
   const { email, password } = req.body;
+  console.log(email, password);
   const user = await userModel.findOne({ email });
 
   if (!user) {
@@ -79,8 +80,20 @@ async function login(req, res) {
     },
   });
 }
+async function getMe(req, res) {
+  const id = req.user.id;
+  const user = await userModel.findById(id).select("-password");
+  if (!user) {
+    return res.status(404).json({
+      message: "user not found",
+    });
+  }
+
+  res.status(200).json({ user });
+}
 
 module.exports = {
   register,
   login,
+  getMe,
 };
