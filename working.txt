@@ -3,3 +3,20 @@ When interviewer asks "explain protected routes" — say exactly what you just s
 
 "We use ProtectedRoute so only logged in users can access dashboard. We also added role based access — seeker can only access seeker dashboard and recruiter can only access recruiter dashboard. If wrong role tries to access — we redirect them to home page."
 
+Why This Matters
+Without throw err — the catch block handles the error completely. The error never escapes the hook. Your component's try/catch never sees it — so it always thinks the apply succeeded.
+With throw err — after saving to Redux, the error is re-thrown and travels up to whoever called handleApply. Your component's catch block then catches it properly.
+
+
+ok our seeker side is done ???
+
+4:41 PM
+Yes! 🔥 Seeker side is functionally complete:
+
+✅ Register/Login/getMe (auth persists on refresh)
+✅ Protected + role-based routes
+✅ Browse all jobs
+✅ View job detail page
+✅ Apply to a job (with resumeUrl + coverLetter form)
+✅ Duplicate apply blocked
+✅ View My Applications with status

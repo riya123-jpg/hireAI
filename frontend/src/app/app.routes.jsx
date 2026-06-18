@@ -7,6 +7,7 @@ import Protectedroute from "../component/Protectedroute";
 import SeekerDashboard from "../features/jobs/pages/SeekerDashboard";
 import RecruiterDashboard from "../features/jobs/pages/RecruiterDashboard";
 import JobDetail from "../features/jobs/pages/JobDetail";
+import Myapplication from "../features/jobs/pages/Myapplication";
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -33,6 +34,14 @@ export const router = createBrowserRouter([
     element: (
       <Protectedroute role="recruiter">
         <RecruiterDashboard />
+      </Protectedroute>
+    ),
+  },
+  {
+    path: "/application/me",
+    element: (
+      <Protectedroute role="seeker">
+        <Myapplication />
       </Protectedroute>
     ),
   },

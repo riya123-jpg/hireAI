@@ -40,6 +40,8 @@ async function applyJob(req, res) {
     coverLetter,
   });
 
+  console.log("hogaya");
+
   res.status(201).json({
     application,
   });

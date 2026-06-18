@@ -1,9 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useJobs } from "../hooks/useJob";
 import { useNavigate, useParams } from "react-router-dom";
+import { useApplication } from "../../applications/hooks/useApplication";
 const JobDetail = () => {
+  const [resumeUrl, setResumeUrl] = useState("");
+  const [coverLetter, setCoverLetter] = useState("");
   const { handleFetchJobById } = useJobs();
+  const { handleApply } = useApplication();
 
   const { id } = useParams();
 
@@ -20,8 +24,8 @@ const JobDetail = () => {
   }, []);
 
   if (loading) return <h1>loading....</h1>;
-
-  async function handleApply() {
+  console.log("Applying to job id:", id);
+  async function handleApplyJob() {
     if (!user) {
       navigate("/login");
       return;
@@ -30,7 +34,16 @@ const JobDetail = () => {
       alert("recruiter cannot apply for the job");
       return;
     }
-    console.log("applying to job:", id);
+    try {
+      await handleApply(id, {
+        resumeUrl,
+        coverLetter,
+      });
+
+      alert("Applied successfully!");
+    } catch (err) {
+      alert(err.response?.data?.message || "failed to apply");
+    }
   }
 
   return (
@@ -44,7 +57,26 @@ const JobDetail = () => {
         Salary: {job?.salary?.min} - {job?.salary?.max}
       </p>
 
-      <button onClick={handleApply}>Apply Now</button>
+      <input
+        type="text"
+        value={resumeUrl}
+        onChange={(e) => {
+          setResumeUrl(e.target.value);
+        }}
+        placeholder="Paste your resume link(google drive,etc..)"
+      />
+      <br />
+      <br />
+      <textarea
+        value={coverLetter}
+        onChange={(e) => {
+          setCoverLetter(e.target.value);
+        }}
+        placeholder="why are you a good fit?"
+      ></textarea>
+      <br />
+      <br />
+      <button onClick={handleApplyJob}>Apply Now</button>
     </div>
   );
 };

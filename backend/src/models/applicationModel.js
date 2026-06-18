@@ -33,7 +33,7 @@ const applicationSchema = new mongoose.Schema(
   { Timestamp: true },
 );
 
-applicationSchema.index({ jobs: 1, applicant: 1 }, { unique: true });
+applicationSchema.index({ job: 1, applicant: 1 }, { unique: true });
 
 const applicationModel = mongoose.model("application", applicationSchema);
 
